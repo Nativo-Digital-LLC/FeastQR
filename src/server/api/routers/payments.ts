@@ -5,7 +5,7 @@ import { TRPCError } from "@trpc/server";
 import { checkIfSubscribed } from "~/shared/hooks/useUserSubscription";
 import { z } from "zod";
 
-const client = new LemonsqueezyClient(env.LEMON_SQUEEZY_API_KEY);
+// const client = new LemonsqueezyClient(env.LEMON_SQUEEZY_API_KEY);
 
 const createPremiumCheckoutSchema = z.object({
   language: z.enum(["en", "pl"]),
@@ -34,6 +34,8 @@ export const paymentsRouter = createTRPCRouter({
   createPremiumCheckout: privateProcedure
     .input(createPremiumCheckoutSchema)
     .mutation(async ({ ctx, input }) => {
+      return '';
+      /*
       const language = input.language;
       const translations = checkoutTranslations[language];
       const newCheckout = await client.createCheckout({
@@ -56,6 +58,7 @@ export const paymentsRouter = createTRPCRouter({
       });
 
       return newCheckout.data.attributes.url;
+      */
     }),
   cancelSubscription: privateProcedure.mutation(async ({ ctx }) => {
     const subscription = await ctx.db.subscriptions.findFirst({
@@ -73,6 +76,7 @@ export const paymentsRouter = createTRPCRouter({
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
+    /*
     const updateResult = await client.updateSubscription({
       id: subscription.lemonSqueezyId,
       cancelled: true,
@@ -87,6 +91,7 @@ export const paymentsRouter = createTRPCRouter({
         message: "Failed to cancel subscription",
       });
     }
+    */
   }),
   getSubscriptionInfo: privateProcedure.query(async ({ ctx }) => {
     return ctx.db.subscriptions.findFirst({
@@ -117,13 +122,16 @@ export const paymentsRouter = createTRPCRouter({
       });
     }
 
+    /*
     const subscriptionResult = await client.retrieveSubscription({
       id: subscription.lemonSqueezyId,
     });
+    */
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    return subscriptionResult.data.attributes.urls.customer_portal as string;
+    // return subscriptionResult.data.attributes.urls.customer_portal as string;
+    return '';
   }),
 });
 

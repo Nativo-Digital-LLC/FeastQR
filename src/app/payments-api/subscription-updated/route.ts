@@ -45,6 +45,7 @@ type Payload = {
 };
 
 export const POST = async (request: NextRequest) => {
+  /*
   try {
     const text = await request.text();
     const hmac = crypto.createHmac(
@@ -122,6 +123,7 @@ export const POST = async (request: NextRequest) => {
       status: 400,
     });
   }
+  */
 
   return new Response(null, {
     status: 200,
